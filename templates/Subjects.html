@@ -1,0 +1,59 @@
+
+  <!DOCTYPE html>
+ 
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Tutor Profiles</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="/static/Subjects.css">
+    </head>
+    <body>
+      
+  <nav>
+    <ul>
+      
+      <li class="add-button"><a href="#" onclick="gotoLandingPage1('Add')">Add</a></li>
+    </ul>
+  </nav>
+  
+  
+
+  <section class="tutor-profiles">
+    <h1>Subjects</h1>
+    <center>
+      <table action="/subject" method="GET" border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+           
+          </tr>
+        </thead>
+        {% for subj in subjects %}
+        <tr>
+          <td>{{ subj['name'] }}</td>
+          <td>{{ subj['number'] }}</td>
+          <td>{{ subj['subject'] }}</td>
+          <td>{{ subj['date'] }}</td>
+          <td>{{ subj['time'] }}</td>
+          <!-- <td><form action="/Subjects" method="post"> -->
+            
+          
+        </tr>
+        {% endfor %}
+      </table>
+    </center>
+  </section>
+
+
+
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

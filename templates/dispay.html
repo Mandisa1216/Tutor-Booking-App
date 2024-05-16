@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tutor Profile</title>
+    <link rel="stylesheet" type="text/css" href="/static/dispay.css">
+</head>
+<body>
+    <div class="container" id="tutorContainer">
+    </div>
+
+    <div class="container" id="tutorContainer">
+        {% for profile in tutor_profiles %}
+        <div class="tutor-info">
+            <div class="profile-image">
+                <img src="/static/Images/image 23.jpeg" alt="Tutor Image">
+            </div>
+            <div class="details">
+                <h1>{{ profile.name }}</h1>
+                <p>Name: {{ profile.name }}</p>
+                <p>Surname: {{ profile.surname }}</p>
+                <p>Email: {{ profile.email }}</p>
+                <p>Phone: {{ profile.phone }}</p>
+                <h2>Subjects Offered</h2>
+                <ul>
+                    {% for subject in profile.subjects %}
+                    <li>{{ subject }}</li>
+                    {% endfor %}
+                </ul>
+                <h2>Availability</h2>
+                <p>Date: {{ profile.date }}</p>
+                <p>Time: {{ profile.time }}</p>
+                <p>Location: {{ profile.location }}</p>
+            </div>
+            <div class="book-button">
+                <button onclick="bookSession()">Book</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2b6;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.delete-button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#add-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Styling for the <h1> element (Book Tutor) */
+h1 {
+    font-family: Arial, sans-serif; /* Set the font family */
+    font-size: 2rem; /* Set the font size */
+    color: #007bff; /* Blue color */
+    text-align: center; /* Center-align the text */
+    margin-bottom: 20px; /* Add margin below the heading */
+}
+
+header {
+    background-color: #4db9d3;
+    color: #070707;
+    padding: 20px;
+    text-align: center;
+    height: 40px;
+}
+/* Styling for buttons within the .in-buttons class */
+.in-buttons {
+    position: absolute; /* Use absolute positioning */
+    top: 10px; /* Distance from the top of the page */
+    right: 10px; /* Distance from the right side of the page */
+}
+
+.in-buttons button {
+    background-color: #8ccbdb; /* Light blue background */
+    border: none;
+    color: #f0e9e9; /* Light text color */
+    padding: 10px 20px; /* Padding for button */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Font size */
+    cursor: pointer;
+    border-radius: 8px; /* Rounded corners */
+    margin: 4px; /* Margin around the button */
+    margin-top: 40px;
+    margin-right: 60px;
+}
+
+.in-buttons button:hover {
+    background-color: #d3e0e3; /* Lighter blue when hovered */
+    border-color: #ff274b; /* Optional border color change */
+}
+
+  
