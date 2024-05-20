@@ -107,13 +107,13 @@ def register_tutor():
             'location': request.form['location']
         }
 
-        tutor = {
-            'subject': tutor_data['subject'],
-            'name': tutor_data['name'],
-            'number': tutor_data['phone'],
-            'date': tutor_data['date'],
-            'time': tutor_data['time']
-        }
+        # tutor = {
+        #     'subject': tutor_data['subject'],
+        #     'name': tutor_data['name'],
+        #     'number': tutor_data['phone'],
+        #     'date': tutor_data['date'],
+        #     'time': tutor_data['time']
+        # }
 
         if db.tutors.find_one(tutor_data):
             return render_template('tutorsignup.html')
@@ -126,23 +126,37 @@ def register_tutor():
 
 @app.route('/display')
 def display():
-    tutor_profiles = [
-        {
-            "name": "John Doe",
-            "surname": "Doe",
-            "email": "johndoe@example.com",
-            "phone": "123-456-7890",
-            "subjects": ["Mathematics", "Physics", "Chemistry"],
-            "date": "May 15, 2024",
-            "time": "10:00 AM - 2:00 PM",
-            "location": "123 Main Street, Anytown USA"
-        },
+    tutor = []
+    for i in db.tutors.find():
+        tutor.append(i)
+    print(tutor)
+    return render_template("dispay.html" , i = tutor)
+    # tutor_profiles = 
+        # {
+        #     "name": "John Doe",
+        #     "surname": "Doe",
+        #     "email": "johndoe@example.com",
+        #     "phone": "123-456-7890",
+        #     "subjects": ["Mathematics", "Physics", "Chemistry"],
+        #     "date": "May 15, 2024",
+        #     "time": "10:00 AM - 2:00 PM",
+        #     "location": "123 Main Street, Anytown USA"
+        # },
         # Add more tutor profiles here if needed
-    ]
+   
     return render_template('display.html', tutor_profiles=tutor_profiles)
     
+from bson.objectid import ObjectId
 
-
+# @app.route('/delete', methods=['POST'])
+# def delete_Subjects():
+#     if request.method == "POST":
+#         id = request.form["id"]
+#         db.Subjects.delete_one({'_id': ObjectId(id)})
+        
+#         subjects = list(db.Subjects.find())
+    
+#     return render_template('Subjects.html', subjects=subjects)
 if __name__ == "__main__":
     app.run(debug=True)
 

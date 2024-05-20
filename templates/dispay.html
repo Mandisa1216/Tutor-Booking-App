@@ -15,11 +15,11 @@
                 <img src="/static/Images/image 23.jpeg" alt="Tutor Image">
             </div>
             <div class="details">
-                <h1>{{ profile.name }}</h1>
-                <p>Name: {{ profile.name }}</p>
-                <p>Surname: {{ profile.surname }}</p>
-                <p>Email: {{ profile.email }}</p>
-                <p>Phone: {{ profile.phone }}</p>
+                <h1>{{ tutor.name }}</h1>
+                <p>Name: {{ tutor.name }}</p>
+                <p>Surname: {{ tutor.surname }}</p>
+                <p>Email: {{ tutor.email }}</p>
+                <p>Phone: {{ tutor.phone }}</p>
                 <h2>Subjects Offered</h2>
                 <ul>
                     {% for subject in profile.subjects %}
@@ -27,13 +27,13 @@
                     {% endfor %}
                 </ul>
                 <h2>Availability</h2>
-                <p>Date: {{ profile.date }}</p>
-                <p>Time: {{ profile.time }}</p>
-                <p>Location: {{ profile.location }}</p>
+                <p>Date: {{ tutor.date }}</p>
+                <p>Time: {{ tutor.time }}</p>
+                <p>Location: {{ tutor.location }}</p>
             </div>
-            <div class="book-button">
+            <!-- <div class="book-button">
                 <button onclick="bookSession()">Book</button>
-            </div>
+            </div> -->
         </div>
         {% endfor %}
     </div>
