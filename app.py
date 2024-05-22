@@ -55,7 +55,7 @@ def landing():
 @app.route("/About")
 def about():
     return render_template("about.html")
-
+    return render_template("tutorsignup.html")        
 
 # ADD PAGE
 
@@ -93,8 +93,8 @@ def adding():
 
     return render_template("adding.html",)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register_tutor():
+@app.route('/tutorsignup', methods=['GET', 'POST'])
+def tutorsignup():
     if request.method == 'POST':
         tutor_data = {
             'name': request.form['name'],
@@ -107,13 +107,13 @@ def register_tutor():
             'location': request.form['location']
         }
 
-        # tutor = {
-        #     'subject': tutor_data['subject'],
-        #     'name': tutor_data['name'],
-        #     'number': tutor_data['phone'],
-        #     'date': tutor_data['date'],
-        #     'time': tutor_data['time']
-        # }
+        tutors = {
+            'subject': tutor_data['subject'],
+            'name': tutor_data['name'],
+            'number': tutor_data['phone'],
+            'date': tutor_data['date'],
+            'time': tutor_data['time']
+        }
 
         if db.tutors.find_one(tutor_data):
             return render_template('tutorsignup.html')
@@ -148,15 +148,43 @@ def display():
     
 from bson.objectid import ObjectId
 
-# @app.route('/delete', methods=['POST'])
-# def delete_Subjects():
-#     if request.method == "POST":
-#         id = request.form["id"]
-#         db.Subjects.delete_one({'_id': ObjectId(id)})
-        
-#         subjects = list(db.Subjects.find())
+@app.route('/deletepage', methods=['POST'])
+def delete_Subjects():
+    if request.method == "POST":
+        id = request.form["deleteid"]
+        db.Subjects.delete_one({'_id': ObjectId(id)})
+        print(id)
+        subjects = list(db.Subjects.find())
     
-#     return render_template('Subjects.html', subjects=subjects)
+    return render_template('Subjects.html', subjects=subjects)
+
+
+@app.route('/updatepage', methods=['POST'])
+def update_page():
+    if request.method == "POST":   
+        id = request.form["updateid"]
+
+        return render_template('update.html', id=id)
+
+
+@app.route('/update', methods=['POST'])
+def update():
+    if request.method == "POST":
+        id = request.form["updateid"]
+        name = request.form["name"]
+        subject = request.form["subject"]
+        time = request.form["time"]
+        date = request.form["date"]
+
+
+        db.Subjects.update_one({'_id': ObjectId(id)}, {"$set": {'name':name, "subject":subject}})
+        print(id)
+        subjects = list(db.Subjects.find())
+    
+    return render_template('Subjects.html', subjects=subjects)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 

@@ -42,7 +42,15 @@
           <td>{{ subj['subject'] }}</td>
           <td>{{ subj['date'] }}</td>
           <td>{{ subj['time'] }}</td>
-      
+      <td><form action="/deletepage" method="post">  
+        <input type="hidden" id="deleteid" name="deleteid" value='{{subj._id}}''>
+        <input type="submit" value="Delete">
+      </form></td>
+      <td><form action="/updatepage" method="post">  
+        <input type="hidden" id="updateid" name="updateid" value='{{subj._id}}''>
+        <input type="submit" value="Update">
+      </form></td>
+      </tr>
         {% endfor %}
       </table>
     </center>
