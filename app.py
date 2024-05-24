@@ -39,7 +39,8 @@ def login():
     user = {"email":email, "password":password }
     
     if  db.user_collection.find_one(user):
-     return render_template("Subjects.html")
+        tutors = db.tutors.find()
+        return render_template('Subjects.html', tutors=tutors)
 
 
   return render_template("login.html")
@@ -62,12 +63,13 @@ def about():
 @app.route('/subject', methods=["GET"])
 def subject():
     subjects = db.Subjects.find()
-    return render_template('Subjects.html', subjects=subjects)
+    return render_template('Subjectss.html', subjects=subjects)
 
 
 @app.route('/add', methods=["POST", "GET"])
 def add():
     if request.method == 'POST':
+        id = request.form['id']
         name = request.form['name']
         number = request.form['number']
         subject_name = request.form['subject']
@@ -84,14 +86,15 @@ def add():
 
         db.Subjects.insert_one(subject)
 
-        return redirect('/subject')
+        subjects = db.Subjects.find()
+        return render_template('Subjectss.html', subjects=subjects, id=id)
     
     return render_template('add.html')
 
 @app.route("/adding")
 def adding():
-
-    return render_template("adding.html",)
+    tutors = list(db.tutors.find())
+    return render_template("adding.html", tutors=tutors)
 
 @app.route('/tutorsignup', methods=['GET', 'POST'])
 def tutorsignup():
@@ -156,7 +159,7 @@ def delete_Subjects():
         print(id)
         subjects = list(db.Subjects.find())
     
-    return render_template('Subjects.html', subjects=subjects)
+    return render_template('Subjectss.html', subjects=subjects)
 
 
 @app.route('/updatepage', methods=['POST'])
@@ -177,13 +180,30 @@ def update():
         date = request.form["date"]
 
 
-        db.Subjects.update_one({'_id': ObjectId(id)}, {"$set": {'name':name, "subject":subject}})
+        db.Subjects.update_one({'_id': ObjectId(id)}, {"$set": {'name':name, 'subject':subject, 'date' :date, 'time':time }})
         print(id)
         subjects = list(db.Subjects.find())
     
     return render_template('Subjects.html', subjects=subjects)
 
+@app.route('/addbooking', methods=['POST'])
+def booking():
+    if request.method == "POST":
+        id = request.form["id"]
+    return render_template('Adding.html', id=id)
 
+@app.route('/tutor', methods=['POST'])
+def tutor():
+  if request.method== "POST":
+    print("email")
+#    declare variables
+
+    
+    tutors = db.tutors.find()
+    return render_template('Subjects.html', tutors=tutors)
+
+
+  return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

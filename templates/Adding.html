@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="app">
-        <h1>Add Subject</h1>
+        <h1> Add Booking</h1>
 
         <!-- <form id="bookingForm">
             <label for="tutor">Tutor:</label>
@@ -19,7 +19,7 @@
                 <option value="2">Tutor 2</option> -->
                
             </select>
-            <form action="add" method="post">
+            <form action="/add" method="post">
             <label for="name">Name:</label>
             <input type="name" id="name" name="name" required>
 
@@ -34,6 +34,9 @@
 
             <label for="time">Time:</label>
             <input type="time" id="time" name="time" required>
+            <input type="hidden" id="id" name="id" value="{{id}}">
+
+          
 
             <button type="submit">Submit</button>
         </form>

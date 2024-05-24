@@ -1,64 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutor Details</title>
+  <link rel="stylesheet" type="text/css" href="/static/display.css">
+</head>
+<body>
+    {% for i in tutors %}
 
-  <!DOCTYPE html>
- 
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Tutor Profiles</title>
-      <meta name="description" content="">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="/static/Subjects.css">
-    </head>
-    <body>
-      
-  <nav>
-    <ul>
-      
-      <li class="add-button"><a href="#" onclick="gotoLandingPage1('Add')">Add</a></li>
-    </ul>
-  </nav>
-  
-  
-
-  <section class="tutor-profiles">
-    <h1>Subjects</h1>
-    <center>
-      <table action="/subject" method="GET" border="1">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Subject</th>
-            <th>Date</th>
-            <th>Time</th>
-           
-          </tr>
-        </thead>
-        {% for subj in subjects %}
-        <tr>
-          <td>{{ subj['name'] }}</td>
-          <td>{{ subj['number'] }}</td>
-          <td>{{ subj['subject'] }}</td>
-          <td>{{ subj['date'] }}</td>
-          <td>{{ subj['time'] }}</td>
-      <td><form action="/deletepage" method="post">  
-        <input type="hidden" id="deleteid" name="deleteid" value='{{subj._id}}''>
-        <input type="submit" value="Delete">
-      </form></td>
-      <td><form action="/updatepage" method="post">  
-        <input type="hidden" id="updateid" name="updateid" value='{{subj._id}}''>
-        <input type="submit" value="Update">
-      </form></td>
-      </tr>
-        {% endfor %}
-      </table>
-    </center>
-  </section>
-
-
-
-
-  <script src="/static/script.js"></script>
+  <div class="tutor-card">
+    <h2>Tutor Details</h2>
+    <div class="tutor-info">
+      <div class="tutor-name">
+        <h3>{{i.name}}</h3>
+        <p>Surname: {{i.surname}}</p>
+      </div>
+      <div class="tutor-contact">
+        <p>Email: {{i.email}}</p>
+        <p>Phone: {{i.phone}}</p>
+      </div>
+      <div class="tutor-subject">
+        <p>Subject Offered: {{i.subject}}</p>
+      </div>
+      <div class="tutor-schedule">
+        <p>Date: {{i.date}}</p>
+        <p>Time: {{i.time}}</p>
+        <p>Location: {{i.location}}</p>
+      </div>
+    </div>
+    <form action="/addbooking" method="post">
+      <input type="hidden" name="id" id="id" value={{i.name}}>
+      <input type="submit"value='Choose Tutor'>
+    </form>
+  </div>
+  {% endfor %}
+  <!-- <div class="tutor-actions">
+    <a href="#" class="book-now-button">Book Now</a>
+  </div -->
 </body>
 </html>

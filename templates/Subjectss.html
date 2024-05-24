@@ -1,0 +1,69 @@
+
+  <!DOCTYPE html>
+ 
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Tutor Profiles</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" type="text/css" href="/static/Subjects.css">
+    </head>
+    <body>
+      
+  <nav>
+    <ul>
+      <form action="/tutor" method="post">  
+        <input type="hidden" id="id" name="id" value='ghidij'>
+        <input type="submit" value="Add">
+      </form>
+      <!-- <li class="add-button"><a href="#" onclick="gotoLandingPage1('addbooking')">Add</a></li> -->
+    </ul>
+  </nav>
+  
+  
+
+  <section class="tutor-profiles">
+    <h1>Bookings</h1>
+    <center>
+      <table action="/subject" method="GET" border="1">
+        <thead>
+          <tr>
+            <th>Tutor</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Time</th>
+           
+          </tr>
+        </thead>
+        {% for subj in subjects %}
+        <tr>
+          <td>{{id}}</td>
+          <td>{{ subj['name'] }}</td>
+          <td>{{ subj['number'] }}</td>
+          <td>{{ subj['subject'] }}</td>
+          <td>{{ subj['date'] }}</td>
+          <td>{{ subj['time'] }}</td>
+      <td><form action="/deletepage" method="post">  
+        <input type="hidden" id="deleteid" name="deleteid" value='{{subj._id}}''>
+        <input type="submit" value="Delete">
+      </form></td>
+      <td><form action="/updatepage" method="post">  
+        <input type="hidden" id="updateid" name="updateid" value='{{subj._id}}''>
+        <input type="submit" value="Update">
+      </form></td>
+      </tr>
+        {% endfor %}
+      </table>
+    </center>
+  </section>
+
+
+
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
