@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 from flask import render_template, redirect, url_for
 
 app = Flask (__name__,static_url_path='/static')
@@ -40,7 +41,7 @@ def login():
     
     if  db.user_collection.find_one(user):
         tutors = db.tutors.find()
-        return render_template('Subjects.html', tutors=tutors)
+        return render_template('display.html', tutors=tutors)
 
 
   return render_template("login.html")
@@ -56,7 +57,7 @@ def landing():
 @app.route("/About")
 def about():
     return render_template("about.html")
-    return render_template("tutorsignup.html")        
+        
 
 # ADD PAGE
 
@@ -87,7 +88,7 @@ def add():
         db.Subjects.insert_one(subject)
 
         subjects = db.Subjects.find()
-        return render_template('Subjectss.html', subjects=subjects, id=id)
+        return redirect('Subjectss.html', subjects=subjects, id=id)
     
     return render_template('add.html')
 
@@ -96,60 +97,57 @@ def adding():
     tutors = list(db.tutors.find())
     return render_template("adding.html", tutors=tutors)
 
+from flask import redirect, url_for
+
+
+
+@app.route('/display_tutors')
+def display_tutors():
+    # Fetch and display the tutor data from the database
+    tutors = db.new_tutors.find()
+    return render_template('display_tutors.html', tutors=tutors)
+           
+   
+from flask import redirect, url_for
+
+
 @app.route('/tutorsignup', methods=['GET', 'POST'])
 def tutorsignup():
     if request.method == 'POST':
-        tutor_data = {
-            'name': request.form['name'],
-            'surname': request.form['surname'],
-            'email': request.form['email'],
-            'phone': request.form['phone'],
-            'subject': request.form['subject'],
-            'date': request.form['date'],
-            'time': request.form['time'],
-            'location': request.form['location']
-        }
+        name = request.form['name']
+        surname = request.form['surname']
+        email = request.form['email']
+        phone = request.form['phone']
+        subject = request.form['subject']
+        date = request.form['date']
+        time = request.form['time']
+        location = request.form['location']
 
-        tutors = {
-            'subject': tutor_data['subject'],
-            'name': tutor_data['name'],
-            'number': tutor_data['phone'],
-            'date': tutor_data['date'],
-            'time': tutor_data['time']
+        # Assuming you have a MongoDB connection string
+        # Collection named 'tutors'
+        tutor = {
+            'name': name,
+            'surname': surname,
+            'email': email,
+            'phone': phone,
+            'subject': subject,
+            'date': date,
+            'time': time,
+            'location': location
         }
+        db.new_tutors.insert_one(tutor)
 
-        if db.tutors.find_one(tutor_data):
-            return render_template('tutorsignup.html')
-        else:
-            db.tutors.insert_one(tutor_data)
-            return render_template ('dispay.html')
+        # Redirect the user to the display page after successful insertion
+        return redirect(url_for('display'))
     else:
-        return render_template('tutorsignup.html')
-
+        return render_template("tutorsignup.html")
+     
 
 @app.route('/display')
 def display():
-    tutor = []
-    for i in db.tutors.find():
-        tutor.append(i)
-    print(tutor)
-    return render_template("dispay.html" , i = tutor)
-    # tutor_profiles = 
-        # {
-        #     "name": "John Doe",
-        #     "surname": "Doe",
-        #     "email": "johndoe@example.com",
-        #     "phone": "123-456-7890",
-        #     "subjects": ["Mathematics", "Physics", "Chemistry"],
-        #     "date": "May 15, 2024",
-        #     "time": "10:00 AM - 2:00 PM",
-        #     "location": "123 Main Street, Anytown USA"
-        # },
-        # Add more tutor profiles here if needed
-   
-    return render_template('display.html', tutor_profiles=tutor_profiles)
-    
-from bson.objectid import ObjectId
+    tutors = db.new_tutors.find()
+    return render_template('display.html', tutors=tutors)
+
 
 @app.route('/deletepage', methods=['POST'])
 def delete_Subjects():
