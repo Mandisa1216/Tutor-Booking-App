@@ -41,8 +41,8 @@ def login():
     
     if  db.user_collection.find_one(user):
         tutors = db.tutors.find()
-        return render_template('display.html', tutors=tutors)
-
+        return redirect(url_for('display', tutors=tutors))
+        
 
   return render_template("login.html")
 
@@ -67,6 +67,8 @@ def subject():
     return render_template('Subjectss.html', subjects=subjects)
 
 
+from flask import redirect, url_for, render_template
+
 @app.route('/add', methods=["POST", "GET"])
 def add():
     if request.method == 'POST':
@@ -87,10 +89,15 @@ def add():
 
         db.Subjects.insert_one(subject)
 
-        subjects = db.Subjects.find()
-        return redirect('Subjectss.html', subjects=subjects, id=id)
+        # Redirect the user to the 'subjects' route after successful insertion
+        return redirect(url_for('subjects', id=id))
     
     return render_template('add.html')
+
+@app.route('/subjects/<id>')
+def subjects(id):
+    subjects = db.Subjects.find()
+    return render_template('Subjectss.html', subjects=subjects, id=id)
 
 @app.route("/adding")
 def adding():
@@ -157,7 +164,7 @@ def delete_Subjects():
         print(id)
         subjects = list(db.Subjects.find())
     
-    return render_template('Subjectss.html', subjects=subjects)
+    return render_template('Subjectss.html', subj=subjects)
 
 
 @app.route('/updatepage', methods=['POST'])
@@ -182,7 +189,7 @@ def update():
         print(id)
         subjects = list(db.Subjects.find())
     
-    return render_template('Subjects.html', subjects=subjects)
+    return render_template('Subjects.html', subj=subjects)
 
 @app.route('/addbooking', methods=['POST'])
 def booking():
