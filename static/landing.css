@@ -3,12 +3,17 @@
   margin: 30px;
   padding: 1600px;
   background-color: rgb(249, 240, 245);
-  background-image: url(/static/book3.jpeg);
+  background-image: url(/static/Images/booook.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  height: 100vh;
+ 
 }
+
+
+
 
 .container {
   max-width: 1750px;
@@ -125,6 +130,15 @@ p {
   color: hwb(0 100% 0%);
   text-decoration: none;
   border-radius: 5px;
+}
+
+@media (min-width: 1441px) {
+  .container {
+    /* Add styles for larger TV screens here */
+    width: 100vw;  /* Take up the full viewport width */
+    height: 100vh; /* Take up the full viewport height */
+    padding: 50px; /* Example of different padding for TV screens */
+  }
 }
 
 /* .signup-button:hover {

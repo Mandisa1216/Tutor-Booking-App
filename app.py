@@ -64,7 +64,7 @@ def about():
 @app.route('/subject', methods=["GET"])
 def subject():
     subjects = db.Subjects.find()
-    return render_template('Subjectss.html', subjects=subjects)
+    return render_template('Subjects.html', subject=subjects)
 
 
 from flask import redirect, url_for, render_template
