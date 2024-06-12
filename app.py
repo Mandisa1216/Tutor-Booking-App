@@ -52,6 +52,11 @@ def login():
 def landing():
     return render_template("landing.html")
 
+@app.route("/turordetail" , methods=["GET"] )
+def turordetail():
+     display = db.new_tutors.find()
+     return render_template("turordetail.html" , display=display)
+
 # ABOUT PAGE
 
 @app.route("/About")
@@ -99,6 +104,13 @@ def subjects(id):
     subjects = db.Subjects.find()
     return render_template('Subjectss.html', subjects=subjects, id=id)
 
+@app.route('/subj/<id>')
+def subj():
+    subject = db.Subjects.find()
+    return render_template('Subjectss.html', subject=subject, id=id)
+
+
+
 @app.route("/adding")
 def adding():
     tutors = list(db.tutors.find())
@@ -112,7 +124,7 @@ from flask import redirect, url_for
 def display_tutors():
     # Fetch and display the tutor data from the database
     tutors = db.new_tutors.find()
-    return render_template('display_tutors.html', tutors=tutors)
+    return render_template('turordetail.html', display=tutors)
            
    
 from flask import redirect, url_for
@@ -129,6 +141,7 @@ def tutorsignup():
         date = request.form['date']
         time = request.form['time']
         location = request.form['location']
+        password = request.form["password"]
 
         # Assuming you have a MongoDB connection string
         # Collection named 'tutors'
@@ -140,14 +153,36 @@ def tutorsignup():
             'subject': subject,
             'date': date,
             'time': time,
-            'location': location
+            'location': location,
+            'password': password
+
         }
         db.new_tutors.insert_one(tutor)
 
         # Redirect the user to the display page after successful insertion
-        return redirect(url_for('display'))
+        return redirect(url_for('Tutorlogin'))
     else:
         return render_template("tutorsignup.html")
+    
+#Tutor login
+@app.route ("/Tutorlogin",methods = ["POST","GET"])
+
+def Tutorlogin():
+  if request.method== "POST":
+    print("email")
+#    declare variables
+    email = request.form["email"]
+    password = request.form["password"]
+
+    user = {"email":email, "password":password }
+    
+    if  db.new_tutors.find_one(user):
+        tutors = db.new_tutors.find()
+        return redirect(url_for('turordetail', tutors=tutors))
+        
+
+  return render_template("logintutor.html")
+
      
 
 @app.route('/display')
@@ -162,8 +197,10 @@ def delete_Subjects():
         id = request.form["deleteid"]
         db.Subjects.delete_one({'_id': ObjectId(id)})
         print(id)
+     
         subjects = list(db.Subjects.find())
-    
+
+       
     return render_template('Subjectss.html', subj=subjects)
 
 
@@ -190,6 +227,14 @@ def update():
         subjects = list(db.Subjects.find())
     
     return render_template('Subjects.html', subj=subjects)
+
+@app.route('/school', methods=['GET'])
+def school():
+    
+      school=list(db.Subjects.find())
+
+      return render_template('my booking.html', school=school)
+
 
 @app.route('/addbooking', methods=['POST'])
 def booking():

@@ -24,9 +24,9 @@
 
 
 <section class="tutor-profiles">
-  <h1>Bookings</h1>
+  <h1> My Bookings</h1>
   <center>
-    <table action="/subj" method="GET" border="1">
+    <table action="/school" method="GET" border="1">
       <thead>
         <tr>
           <th>Tutor</th>
@@ -38,37 +38,25 @@
          
         </tr>
       </thead>
-      {% for subj in subject %}
+      {% for school in school %}
       <tr>
         <td>{{id}}</td>
-        <td>{{ subj['name'] }}</td>
-        <td>{{ subj['number'] }}</td>
-        <td>{{ subj['subject'] }}</td>
-        <td>{{ subj['date'] }}</td>
-        <td>{{ subj['time'] }}</td>
+        <td>{{ school['name'] }}</td>
+        <td>{{ school['number'] }}</td>
+        <td>{{ school['subject'] }}</td>
+        <td>{{ school['date'] }}</td>
+        <td>{{ school['time'] }}</td>
     <td>
       
       <form action="/deletepage" method="post">  
-      <input type="hidden" id="deleteid" name="deleteid" value='{{subj._id}}'>
+      <input type="hidden" id="deleteid" name="deleteid" value='{{school._id}}'>
       <input type="submit" value="Delete">
     </form>
   </td>
-
-    <td>
-      <form action="/updatepage" method="post">  
-      <input type="hidden" id="updateid" name="updateid" value='{{subj._id}}'>
-      <input type="submit" value="Update">
-    </form>
-  </td>
+ 
+  
     </tr>
       {% endfor %}
     </table>
   </center>
 </section>
-
-
-
-
-<script src="/static/script.js"></script>
-</body>
-</html>

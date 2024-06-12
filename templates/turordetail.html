@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tutor Details</title>
+  <link rel="stylesheet" type="text/css" href="/static/tutordetails.css">
+</head>
+<body>
+    {% for display in display %}
+
+  <div class="tutor-card">
+    <h2>Tutor Details</h2>
+    <div class="tutor-info">
+      <div class="tutor-name">
+        <h3>{{display.name}}</h3>
+        <p>Surname: {{display.surname}}</p>
+      </div>
+      <div class="tutor-contact">
+        <p>Email: {{display.email}}</p>
+        <p>Phone: {{display.phone}}</p>
+      </div>
+      <div class="tutor-subject">
+        <p>Subject Offered: {{display.subject}}</p>
+      </div>
+      <div class="tutor-schedule">
+        <p>Date: {{display.date}}</p>
+        <p>Time: {{display.time}}</p>
+        <p>Location: {{display.location}}</p>
+      </div>
+    </div>
+    <button onclick="goToLandingPage2('View booking')">View booking</button>
+  </div>
+  {% endfor %}
+
+  <script>
+    function goToLandingPage2(){
+
+window.location.href= "http://127.0.0.1:5000/school";
+}
+  </script>
+  <script src="/static/script.js"></script>
+</body>
+</html>

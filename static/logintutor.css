@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(0, 0, 0);
+    background-image: url(/static/book3.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .login-container {
+    max-width: 300px;
+    margin: 150px auto;
+    padding: 150px;
+    background-color: hsl(0, 0%, 78%);
+    box-shadow: 0 0 10px rgba(221, 135, 217, 0.1);
+    text-align: center;
+    border-radius: 50px;
+  
+  }
+  
+  h1 {
+    margin: 0 0 20px;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  form button {
+    background-color: hsl(0, 0%, 45%);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
