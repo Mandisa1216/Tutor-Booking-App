@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+ 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tutor Profiles</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/Subjects.css">
+  </head>
+  <body>
+    
+<nav>
+  <ul>
+    <form action="/tutor" method="post">  
+      <input type="hidden" id="id" name="id" value='ghidij'>
+      <input type="submit" value="Add">
+    </form>
+    <!-- <li class="add-button"><a href="#" onclick="gotoLandingPage1('addbooking')">Add</a></li> -->
+  </ul>
+</nav>
+
+
+
+<section class="tutor-profiles">
+  <h1>My Bookings</h1>
+  <center>
+    <table action="/status" method="GET" border="1">
+      <thead>
+        <tr>
+
+          <th>Name</th>
+          <th>Number</th>
+          <th>Subject</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      {% for status in status %}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{ status['name'] }}</td>
+        <td>{{ status['number'] }}</td>
+        <td>{{ status['subject'] }}</td>
+        <td>{{ status['date'] }}</td>
+        <td>{{ status['time'] }}</td>
+  
+        </td>
+        <td class="status-cell" style="color: rgb(207, 53, 53);">Waiting Response</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </center>
+</section>
+
+<script>
+  // Get all the confirm buttons
+  const confirmButtons = document.querySelectorAll('.confirm-btn');
+
+  // Add a click event listener to each confirm button
+  confirmButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      // Get the status cell corresponding to the clicked button
+      const statusCell = document.querySelectorAll('.status-cell')[index];
+
+      // Change the text and color of the status cell
+      statusCell.textContent = 'Confirmed';
+      statusCell.style.color = 'green';
+    });
+  });
+</script>
+
+
+</body>
+</html>

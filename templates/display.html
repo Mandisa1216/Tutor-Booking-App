@@ -27,14 +27,28 @@
         <p>Location: {{i.location}}</p>
       </div>
     </div>
+    <div style="display: flex;">
     <form action="/addbooking" method="post">
       <input type="hidden" name="id" id="id" value={{i.name}}>
       <input type="submit"value='Choose Tutor'>
+      
     </form>
+    <form action="/subjects/{{i.name}}">
+      <input type="hidden" name="id" id="id" value={{i.name}}>
+      <input type="submit"value='View Tutor'>
+    </form>
+
+    
+  </div>
+  
+  
   </div>
   {% endfor %}
-  <!-- <div class="tutor-actions">
-    <a href="#" class="book-now-button">Book Now</a>
-  </div -->
+
+
+
+  <script src="../static/script.js"></script>
+ 
 </body>
+
 </html>

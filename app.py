@@ -78,18 +78,20 @@ from flask import redirect, url_for, render_template
 def add():
     if request.method == 'POST':
         id = request.form['id']
+        print("add id: ", id)
         name = request.form['name']
         number = request.form['number']
         subject_name = request.form['subject']
         date = request.form['date']
         time = request.form['time']
-        
+        bookingstatus = "Waiting Response"
         subject = {
             'subject': subject_name,
             'name': name,
             'number': number,
             'date': date,
-            'time': time
+            'time': time,
+            'bookingstatus': bookingstatus 
         }
 
         db.Subjects.insert_one(subject)
@@ -125,7 +127,8 @@ def display_tutors():
     # Fetch and display the tutor data from the database
     tutors = db.new_tutors.find()
     return render_template('turordetail.html', display=tutors)
-           
+
+                 
    
 from flask import redirect, url_for
 
@@ -191,14 +194,13 @@ def display():
     return render_template('display.html', tutors=tutors)
 
 
-@app.route('/deletepage', methods=['POST'])
-def delete_Subjects():
+@app.route('/delete', methods=['POST'])
+def delete_record():
     if request.method == "POST":
         id = request.form["deleteid"]
         db.Subjects.delete_one({'_id': ObjectId(id)})
         print(id)
-     
-        subjects = list(db.Subjects.find())
+        return redirect(url_for('school'))
 
        
     return render_template('Subjectss.html', subj=subjects)
@@ -236,6 +238,18 @@ def school():
       return render_template('my booking.html', school=school)
 
 
+@app.route('/status', methods=['GET'])
+def status():
+    
+      status=list(db.Subjects.find())
+
+      return render_template('status.html', status=status)
+
+
+
+
+
+
 @app.route('/addbooking', methods=['POST'])
 def booking():
     if request.method == "POST":
@@ -254,6 +268,20 @@ def tutor():
 
 
   return render_template("login.html")
+
+
+@app.route('/confirm', methods=['POST'])
+def confirm():
+    booking_id = request.form['confirm']
+    print("confirm i", booking_id)
+    # Update the status of the booking to "Confirmed"
+    db.Subjects.update_one({'_id': ObjectId(booking_id)}, {'$set': {'bookingstatus': 'Confirmed'}})
+    test = list(db.Subjects.find())
+    print("tt", test)
+    
+    return redirect(url_for('school'))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
