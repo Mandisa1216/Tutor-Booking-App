@@ -9,7 +9,11 @@ def display_tutors():
 
 
     # Fetch and display the tutor data from the database
-def display():
-    tutors = tutor.display()
-    return render_template('display.html', tutors=tutors)
+def turordetail():
+     display = tutor.tutor_details()
+     return render_template("turordetail.html" , display=display)
 
+
+def display():
+    tutors = tutor.tutor_details()
+    return render_template('display.html', tutors=tutors)

@@ -7,4 +7,7 @@ app = Blueprint ('display_tutors', __name__)
 
 
 app.route ("/display_tutors",methods = ["POST","GET"])(tutordetails.display_tutors)
-app.route ("/display",methods = ["POST","GET"])(tutordetails.display)
+app.route("/turordetail" , methods=["POST","GET"] )(tutordetails.turordetail)
+app.route("/display" , methods=["POST","GET"] )(tutordetails.display)
+
+

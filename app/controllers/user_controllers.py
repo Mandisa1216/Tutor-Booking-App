@@ -26,7 +26,9 @@ def login():
 
     user_controllers = {"email":email, "password":password }
     user.get_all_user_collection(user_controllers)
+    
     return redirect(url_for('display_tutors.display'))
+
 
         
 
